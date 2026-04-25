@@ -1,0 +1,32 @@
+```mermaid
+flowchart TD
+    A["1. Entendimento do Problema<br/>• Objetivo: prever consumo diário (kWh) do MT_124<br/>• Horizonte: 1 dia à frente<br/>• Métricas: MAE, RMSE, MAPE"]
+
+    B["2. Coleta e Ingestão dos Dados<br/>• Dataset LD2011_2014.txt (UCI)<br/>• 370 clientes × 140.256 registros (15 min)<br/>• Leitura com pandas (sep=';', decimal=',')"]
+
+    C["3. Pré-processamento<br/>• Seleção do cliente MT_124<br/>• Conversão kW → kWh (divisão por 4)<br/>• Agregação de 15 min → diário (soma 96 medições)<br/>• Tratamento de zeros (interpolação temporal)"]
+
+    D["4. Transformação e Engenharia de Features<br/>• Lags: t-1, t-7, t-30<br/>• Média móvel: 7 e 30 dias<br/>• Variáveis sazonais: dia_semana, mês, dia_do_ano"]
+
+    E["5. Análise Exploratória (EDA)<br/>• Visualização da série temporal<br/>• Decomposição aditiva (tendência + sazonalidade)<br/>• Boxplot por dia da semana e por mês<br/>• ACF / PACF (lags até 60)<br/>• Teste ADF de estacionariedade<br/>• Diagnóstico de outliers via IQR"]
+
+    F["6. Divisão Treino / Teste<br/>• Treino: 2011-01-31 a 2013-12-31<br/>• Teste: 2014-01-01 a 2014-12-31<br/>• Separação cronológica (sem embaralhamento)"]
+
+    G["7. Modelagem<br/>• Persistência (Naive)<br/>• Média Móvel (7 dias)<br/>• SARIMA(1,1,1)(1,1,1,7)<br/><br/>—— Entregas futuras ——<br/>• Random Forest / Gradient Boosting<br/>• Ajuste de hiperparâmetros"]
+
+    H["8. Avaliação<br/>• Métricas: MAE, RMSE, MAPE<br/>• Comparação tabular e gráfica entre modelos<br/>• Diagnóstico de resíduos (SARIMA)"]
+
+    I["9. Análise dos Resultados e Entrega Final<br/>• Seleção do melhor modelo<br/>• Justificativa técnica<br/>• Limitações e melhorias futuras"]
+
+    A --> B --> C --> D --> E --> F --> G --> H --> I
+
+    style A fill:#e3f2fd,stroke:#1565c0,stroke-width:2px
+    style B fill:#e8f5e9,stroke:#2e7d32,stroke-width:2px
+    style C fill:#e8f5e9,stroke:#2e7d32,stroke-width:2px
+    style D fill:#fff3e0,stroke:#e65100,stroke-width:2px
+    style E fill:#fff3e0,stroke:#e65100,stroke-width:2px
+    style F fill:#fce4ec,stroke:#c62828,stroke-width:2px
+    style G fill:#f3e5f5,stroke:#6a1b9a,stroke-width:2px
+    style H fill:#f3e5f5,stroke:#6a1b9a,stroke-width:2px
+    style I fill:#efebe9,stroke:#4e342e,stroke-width:2px
+```
